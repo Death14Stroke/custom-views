@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Custom RecyclerView</string>
+    <string name="empty">No items</string>
+    <string name="header">Header</string>
+</resources>

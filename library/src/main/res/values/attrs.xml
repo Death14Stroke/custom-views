@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="EmptyRecyclerView">
+        <attr name="emptyView" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="HeaderRecyclerView">
+        <attr name="headerView" format="reference" />
+    </declare-styleable>
+</resources>
