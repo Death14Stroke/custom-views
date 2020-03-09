@@ -7,4 +7,8 @@
     <declare-styleable name="HeaderRecyclerView">
         <attr name="headerView" format="reference" />
     </declare-styleable>
+
+    <declare-styleable name="ProgressWebView">
+        <attr name="progressBar" format="reference" />
+    </declare-styleable>
 </resources>

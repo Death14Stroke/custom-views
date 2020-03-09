@@ -9,13 +9,18 @@ import com.andruid.magic.customviews.R
 import com.andruid.magic.eezetensions.hide
 import com.andruid.magic.eezetensions.show
 
+/**
+ * RecyclerView to show a header view above when recyclerView adapter is not empty
+ */
 class HeaderRecyclerView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
 ) : RecyclerView(context, attrs, defStyleAttr) {
+    // header view
     private lateinit var headerView: View
 
+    // header view ID
     private var headerViewID: Int
 
     private val emptyObserver = object : AdapterDataObserver() {
@@ -62,6 +67,9 @@ class HeaderRecyclerView @JvmOverloads constructor(
         }
     }
 
+    /**
+     * Hide headerView if recyclerView is empty else show headerView
+     */
     private fun toggleVisibility() {
         if (!::headerView.isInitialized)
             return

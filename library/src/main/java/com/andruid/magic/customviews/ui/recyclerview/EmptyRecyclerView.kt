@@ -9,13 +9,18 @@ import com.andruid.magic.customviews.R
 import com.andruid.magic.eezetensions.hide
 import com.andruid.magic.eezetensions.show
 
+/**
+ * RecyclerView to show a empty view when no item is present
+ */
 class EmptyRecyclerView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
 ) : RecyclerView(context, attrs, defStyleAttr) {
+    // empty view
     private lateinit var emptyView: View
 
+    // empty view ID
     private var emptyViewID: Int
 
     private val emptyObserver = object : AdapterDataObserver() {
@@ -62,6 +67,9 @@ class EmptyRecyclerView @JvmOverloads constructor(
         }
     }
 
+    /**
+     * Hide empty layout if adapter is not empty and show recyclerView else do vice versa
+     */
     private fun toggleVisibility() {
         if (!::emptyView.isInitialized)
             return
