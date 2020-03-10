@@ -10,18 +10,18 @@ import com.andruid.magic.eezetensions.hide
 import com.andruid.magic.eezetensions.show
 
 /**
- * RecyclerView to show a header view above when recyclerView adapter is not empty
+ * RecyclerView to show a empty view when no item is present
  */
-class HeaderRecyclerView @JvmOverloads constructor(
-    context: Context,
-    attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0
+open class EmptyRecyclerView @JvmOverloads constructor(
+        context: Context,
+        attrs: AttributeSet? = null,
+        defStyleAttr: Int = 0
 ) : RecyclerView(context, attrs, defStyleAttr) {
-    // header view
-    private lateinit var headerView: View
+    // empty view
+    private var emptyView: View? = null
 
-    // header view ID
-    private var headerViewID: Int
+    // empty view ID
+    private var emptyViewID: Int
 
     private val emptyObserver = object : AdapterDataObserver() {
         override fun onItemRangeInserted(positionStart: Int, itemCount: Int) {
@@ -47,15 +47,15 @@ class HeaderRecyclerView @JvmOverloads constructor(
 
     init {
         val a = context.obtainStyledAttributes(
-            attrs, R.styleable.HeaderRecyclerView, defStyleAttr, 0
+                attrs, R.styleable.EmptyRecyclerView, defStyleAttr, 0
         )
-        headerViewID = a.getResourceIdOrThrow(R.styleable.HeaderRecyclerView_headerView)
+        emptyViewID = a.getResourceIdOrThrow(R.styleable.EmptyRecyclerView_emptyView)
         a.recycle()
     }
 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
-        headerView = (parent as View).findViewById(headerViewID)
+        emptyView = rootView.findViewById(emptyViewID)
         emptyObserver.onChanged()
     }
 
@@ -68,14 +68,15 @@ class HeaderRecyclerView @JvmOverloads constructor(
     }
 
     /**
-     * Hide headerView if recyclerView is empty else show headerView
+     * Hide empty layout if adapter is not empty and show recyclerView else do vice versa
      */
     private fun toggleVisibility() {
-        if (!::headerView.isInitialized)
-            return
-        if (adapter?.itemCount == 0)
-            headerView.hide()
-        else
-            headerView.show()
+        if (adapter?.itemCount == 0) {
+            emptyView?.show()
+            hide()
+        } else {
+            emptyView?.hide()
+            show()
+        }
     }
 }
